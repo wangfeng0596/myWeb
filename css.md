@@ -1,11 +1,11 @@
-## CSS 代码风格
+# CSS 代码风格
 
-### 基本设置
+## 基本设置
 
 * 【强制】4 空格缩进,不允许2空格或者tab字符
 * 【强制】UTF-8 编码
 
-### 空白与格式
+## 空白与格式
 
 * 【强制】大括号与选择器之间留空，冒号后面留空，注释内外前后留空。<br/>
    理由：据说这样比较漂亮。
@@ -82,8 +82,8 @@ article[character='juliet'] {
     voice-family: "Vivien Leigh", victoria, female
 }
 ```
-### 通用
-
+## 通用
+### 选择器
 * 【建议】选择器的嵌套层级应不大于 3 级，位置靠后的限定条件应尽可能精确。
 ```CSS
 /* godd */
@@ -92,6 +92,7 @@ article[character='juliet'] {
 /* bad */
 .container .article .user .name {}
 ```
+### 属性缩写
 * 【建议】在可以使用缩写的情况下，尽量使用属性缩写。
 ```CSS
 /* good */
@@ -134,7 +135,8 @@ article {
     border: 1px solid #69c; /* introducing redundancy */
 }
 ```
-* 【建议】 属性书写顺序，同一 rule set 下的属性在书写时，应按功能进行分组，并以 Formatting Model（布局方式、位置） > Box Model（尺寸） > Typographic（文本相关） > Visual（视觉效果） 的顺序书写，以提高代码的可读性。<br>
+### 属性书写顺序
+* 【建议】同一 rule set 下的属性在书写时，应按功能进行分组，并以 Formatting Model（布局方式、位置） > Box Model（尺寸） > Typographic（文本相关） > Visual（视觉效果） 的顺序书写，以提高代码的可读性。<br>
    如果包含 content 属性，应放在最前面<br>
    Formatting Model 相关属性包括：position / top / right / bottom / left / float / display / overflow 等<br>
    Box Model 相关属性包括：border / margin / padding / width / height 等<br>
@@ -166,16 +168,17 @@ article {
             transition: color 1s;
 }
 ```
+### 清除浮动
 * 【建议】 当元素需要撑起高度以包含内部的浮动元素时，通过对伪类设置 clear 或触发 BFC 的方式进行 clearfix。尽量不使用增加空标签的方式。<br>
    触发 BFC 的方式很多，常见的有：<br>
    float 非 none<br>
    position 非 static<br>
    overflow 非 visible<br>
-   
+### !important 
 * 【建议】 尽量不使用 !important 声明。
 * 【建议】 当需要强制指定样式且不允许任何场景覆盖时，通过标签内联和 !important 定义样式。<br>
    解释：必须注意的是，仅在设计上 确实不允许任何其它场景覆盖样式 时，才使用内联的 !important 样式。通常在第三方环境的应用中使用这种方案。下面的 z-index 章节是其中一个特殊场景的典型样例。<br>
-
+### z-index
 * 【建议】将 z-index 进行分层，对文档流外绝对定位元素的视觉层级关系进行管理。<br>
   解释：同层的多个元素，如多个由用户输入触发的 Dialog，在该层级内使用相同的 z-index 或递增 z-index。建议每层包含100个 z-index 来容纳足够的元素，如果每层元素较多，可以调整这个数值。<br>
 
@@ -185,8 +188,8 @@ article {
 * 【建议】在第三方环境下，期望显示在最上层的元素，通过标签内联和 !important，将 z-index 指定为 2147483647。<br>
    解释：第三方环境对于开发者来说完全不可控。在第三方环境下的元素，为了保证元素不被其页面其他样式定义覆盖，需要采用此做法。<br>
 
-### 值与单位
-
+## 值与单位
+### 文本
 * 【强制】文本内容必须用双引号包围。
 ```CSS
 /* good */
@@ -211,6 +214,7 @@ html[lang|=zh] q:after {
     content: "”";
 }
 ```
+### 数值
 * 【强制】当数值为 0 - 1 之间的小数时，省略整数部分的 0。
 ```CSS
 /* good */
@@ -223,6 +227,7 @@ panel {
     opacity: 0.8
 }
 ```
+### url
 * 【强制】url() 函数中的路径不加引号。
 * 【建议】url() 函数中的绝对路径可省去协议名。
 ```CSS
@@ -233,6 +238,7 @@ body {
     background: url(//baidu.com/img/bg.png) no-repeat 0 0;
 }
 ```
+### 长度
 * 【建议】 0 值的单位建议省略，但不强制<br>
 ```CSS
 /* good */
@@ -245,6 +251,7 @@ body {
     padding: 0px 5px;
 }
 ```
+### 颜色
 * 【强制】RGB颜色值必须使用十六进制记号形式 #rrggbb。不允许使用 rgb()。<br>
    带有alpha的颜色信息可以使用 rgba()。使用 rgba() 时每个逗号后必须保留一个空格。<br>
 ```CSS
@@ -287,7 +294,8 @@ body {
     background-color: #ACA;
 }
 ```
-* 【强制】2D位置必须同时给出水平和垂直方向的位置。
+### 2D 位置
+* 【强制】必须同时给出水平和垂直方向的位置。
    解释：2D 位置初始值为 0% 0%，但在只有一个方向的值时，另一个方向的值会被解析为 center。为避免理解上的困扰，应同时给出两个方向的值。background-position属性值的定义。<br>
 ```CSS
 /* good */
@@ -301,9 +309,9 @@ body {
 }
 ```
 
-### 文本编排
+## 文本编排
 
-### 变换与动画
+## 变换与动画
 * 【强制】使用 transition 时应指定 transition-property。<br>
 
 ```CSS
@@ -342,7 +350,7 @@ body {
     left: 20px; /* move right for 20px */
 }
 ```
-### 响应式
+## 响应式
 * 【强制】 Media Query 不得单独编排，必须与相关的规则一起定义。<br>
 
 ```CSS
@@ -389,7 +397,7 @@ body {
 
 * 【建议】尽可能给出在高分辨率设备 (Retina) 下效果更佳的样式。
 
-### 兼容性
+## 兼容性
 * 【强制】带私有前缀的属性由长到短排列，按冒号位置对齐。<br>
    解释：标准属性放在最后，按冒号对齐方便阅读，也便于在编辑器内进行多行编辑。<br>
    
@@ -436,14 +444,14 @@ body {
 * 【强制】禁止使用 Expression <br>
    理由：影响性能。
    
-### 功能限定
+## 功能限定
 
 * 避免使用 ID 选择器。<br/>
   理由：权重太高，不易维护。
 * 禁止使用 @import 引入 CSS 文件。
   理由：各种坑不解释。<br/>
 
-### 命名与模块化
+## 命名与模块化
 
 * 类名中的字母一律小写。<br/>
   理由：它不区分大小写，难道有人想统一大写？
