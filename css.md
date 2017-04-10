@@ -2,7 +2,7 @@
 
 ### 基本设置
 
-* 2 空格缩进
+* 4 空格缩进,不允许2空格或者tab字符
 * UTF-8 编码
 
 ### 空白与格式
@@ -36,6 +36,9 @@ span {
 * 用逗号分隔的多个样式值写成多行。<br/>
   理由：便于阅读与编辑。
 ```CSS
+.artical {
+  font-family: "Vivien Leigh", victoria, female;
+}
 .block {
   box-shadow: 0 0 0 rgba(#000, 0.1),
               1px 1px 0 rgba(#000, 0.2),
@@ -43,6 +46,48 @@ span {
               3px 3px 0 rgba(#000, 0.4),
               4px 4px 0 rgba(#000, 0.5);
 }
+```
+* 每行不得超过 120 个字符，除非单行不可分割，常见不可分割的场景为URL超长。
+  对于超长的样式，在样式值的 空格 处或 , 后换行，建议按逻辑分组
+```CSS
+/* 不同属性值按逻辑分组 */
+background:
+    transparent url(aVeryVeryVeryLongUrlIsPlacedHere)
+    no-repeat 0 0;
+
+/* 可重复多次的属性，每次重复一行 */
+background-image:
+    url(aVeryVeryVeryLongUrlIsPlacedHere)
+    url(anotherVeryVeryVeryLongUrlIsPlacedHere);
+
+/* 类似函数的属性值可以根据函数调用的缩进进行 */
+background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0.04, rgb(88,94,124)),
+    color-stop(0.52, rgb(115,123,162))
+);
+```
+* 属性选择器中的值必须用双引号包围,不允许使用单引号
+```CSS
+/* good */
+article[character="juliet"] {
+    voice-family: "Vivien Leigh", victoria, female
+}
+
+/* bad */
+article[character='juliet'] {
+    voice-family: "Vivien Leigh", victoria, female
+}
+```
+* 选择器的嵌套层级应不大于 3 级，位置靠后的限定条件应尽可能精确。
+```CSS
+/* godd */
+.container .article {}
+
+/* bad */
+.container .article .user .name {}
 ```
 
 ### 功能限定
